@@ -60,8 +60,18 @@ bun run start
 
 ### Using Docker
 ```bash
-docker-compose up -d
+# Start the application and MongoDB
+docker compose up -d
+
+# Populate database with sample data
+docker compose --profile seeder up seeder
 ```
+
+This will:
+- Start the API server on port 3000
+- Start MongoDB on port 27017
+- Create 30 random players with rankings
+- Generate statistics about card findings
 
 ## 📊 Seeding Data
 
