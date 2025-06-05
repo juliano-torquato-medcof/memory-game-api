@@ -16,9 +16,13 @@ A high-performance backend service for the Memory Game application, built with E
 ## 📋 Prerequisites
 
 - Node.js (v18 or higher)
-- Bun Runtime
 - MongoDB (v4.4 or higher)
 - Docker (optional, for containerization)
+- One of the following package managers:
+  - npm (comes with Node.js)
+  - yarn
+  - pnpm
+  - bun
 
 ## 🛠️ Installation
 
@@ -28,8 +32,18 @@ A high-performance backend service for the Memory Game application, built with E
    cd memory-game-backend
    ```
 
-2. Install dependencies:
+2. Install dependencies using your preferred package manager:
    ```bash
+   # Using npm (default)
+   npm install
+
+   # Using yarn
+   yarn install
+
+   # Using pnpm
+   pnpm install
+
+   # Using bun
    bun install
    ```
 
@@ -49,29 +63,56 @@ A high-performance backend service for the Memory Game application, built with E
 
 ### Development Mode
 ```bash
+# Using npm
+npm run dev
+
+# Using yarn
+yarn dev
+
+# Using pnpm
+pnpm dev
+
+# Using bun
 bun run dev
 ```
 
 ### Production Mode
 ```bash
+# Using npm
+npm run build
+npm start
+
+# Using yarn
+yarn build
+yarn start
+
+# Using pnpm
+pnpm run build
+pnpm start
+
+# Using bun
 bun run build
-bun run start
+bun start
 ```
 
 ### Using Docker
 ```bash
 # Start the application and MongoDB
 docker compose up -d
-
-# Populate database with sample data
-docker compose --profile seeder up seeder
 ```
 
 This will:
-- Start the API server on port 3000
-- Start MongoDB on port 27017
-- Create 30 random players with rankings
-- Generate statistics about card findings
+1. Start MongoDB on port 27017
+2. Run the database seeder to populate initial data:
+   - Create 30 random players with rankings
+   - Generate statistics about card findings
+3. Start the API server on port 3000
+
+The Docker setup automatically:
+- Detects your preferred package manager based on lock files
+- Uses the appropriate package manager for installation and running commands
+- Seeds the database during initial setup
+- Ensures services start in the correct order with health checks
 
 ## 📊 Seeding Data
 
@@ -79,9 +120,25 @@ The project includes scripts to populate the database with sample data:
 
 ### Available Scripts
 ```bash
-bun run seed            # Run both seeds in sequence
-bun run seed:stats      # Seed statistics based on rankings
-bun run seed:rankings   # Seed only rankings data (30 random players)
+# Using npm
+npm run seed            # Run both seeds in sequence
+npm run seed:stats      # Seed statistics based on rankings
+npm run seed:rankings   # Seed only rankings data (30 random players)
+
+# Using yarn
+yarn seed
+yarn seed:stats
+yarn seed:rankings
+
+# Using pnpm
+pnpm run seed
+pnpm run seed:stats
+pnpm run seed:rankings
+
+# Using bun
+bun run seed
+bun run seed:stats
+bun run seed:rankings
 ```
 
 ### Sample Data Generated
@@ -164,17 +221,8 @@ src/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-For support, please open an issue in the GitHub repository or contact the maintainers.
-
 ## 🙏 Acknowledgments
 
 - Express.js team for the amazing framework
 - MongoDB team for the robust database
-- Bun team for the blazing fast runtime
 - All contributors who have helped shape this project

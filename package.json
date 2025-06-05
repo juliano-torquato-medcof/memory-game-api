@@ -4,18 +4,18 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run src/index.ts",
-    "dev": "bun --watch src/index.ts",
-    "build": "bun build ./src/index.ts --outdir ./dist --target node",
-    "lint": "bun x eslint . --ext .ts",
-    "lint:fix": "bun x eslint . --ext .ts --fix",
-    "format": "bun x prettier --write \"src/**/*.ts\"",
-    "format:check": "bun x prettier --check \"src/**/*.ts\"",
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
     "prepare": "husky install",
-    "test": "bun test",
-    "seed": "bun run seed:rankings && bun run seed:stats",
-    "seed:rankings": "bun run src/scripts/seedRankings.ts",
-    "seed:stats": "bun run src/scripts/seedStats.ts"
+    "test": "node --test",
+    "seed": "tsx src/scripts/seedRankings.ts && tsx src/scripts/seedStats.ts",
+    "seed:rankings": "tsx src/scripts/seedRankings.ts",
+    "seed:stats": "tsx src/scripts/seedStats.ts"
   },
   "lint-staged": {
     "*.ts": [
@@ -34,6 +34,7 @@
     "express": "^5.1.0",
     "mongoose": "^8.14.3",
     "swagger-ui-express": "^5.0.1",
+    "tsx": "^4.7.1",
     "zod": "^3.24.4"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "eslint": "^9.26.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "typescript": "^5.4.2"
   }
 }

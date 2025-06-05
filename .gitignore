@@ -10,6 +10,12 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+# Package manager lock files
+bun.lockb
+bun.lock
+pnpm-lock.yaml
+yarn.lock
+
 # Caches
 
 .cache

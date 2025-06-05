@@ -21,10 +21,22 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+      seeder:
+        condition: service_completed_successfully
     volumes:
       - .:/app
       - /app/node_modules
-    command: ["bun", "run", "dev"]
+    command: >
+      sh -c "
+        if [ -f bun.lock ]; then
+          bun run dev;
+        elif [ -f pnpm-lock.yaml ]; then
+          pnpm run dev;
+        elif [ -f yarn.lock ]; then
+          yarn dev;
+        else
+          npm run dev;
+        fi"
 
   mongodb:
     image: mongo:latest
@@ -51,9 +63,18 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: ["bun", "run", "seed"]
-    profiles:
-      - seeder
+    command: >
+      sh -c "
+        if [ -f bun.lock ]; then
+          bun run seed;
+        elif [ -f pnpm-lock.yaml ]; then
+          pnpm run seed;
+        elif [ -f yarn.lock ]; then
+          yarn seed;
+        else
+          npm run seed;
+        fi"
+    restart: "no"
 
 volumes:
   mongodb_data: 
