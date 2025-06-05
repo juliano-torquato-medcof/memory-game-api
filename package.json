@@ -1,0 +1,55 @@
+{
+  "name": "jogo-da-memoria-backend",
+  "version": "1.0.0",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build ./src/index.ts --outdir ./dist --target node",
+    "lint": "bun x eslint . --ext .ts",
+    "lint:fix": "bun x eslint . --ext .ts --fix",
+    "format": "bun x prettier --write \"src/**/*.ts\"",
+    "format:check": "bun x prettier --check \"src/**/*.ts\"",
+    "prepare": "husky install",
+    "test": "bun test",
+    "seed": "bun run seed:rankings && bun run seed:stats",
+    "seed:rankings": "bun run src/scripts/seedRankings.ts",
+    "seed:stats": "bun run src/scripts/seedStats.ts"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@anatine/zod-openapi": "^2.2.8",
+    "@types/swagger-ui-express": "^4.1.8",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.3",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.1",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^22.15.18",
+    "@types/prettier": "^2.7.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "bun-types": "latest",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.26.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.5.3"
+  }
+}

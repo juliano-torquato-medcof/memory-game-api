@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      target: base
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/memory-game
+      - NODE_ENV=dev
+      - API_URL=http://localhost
+      - PORT=3000
+      - BUN_ENV=development
+      - WATCHPACK_POLLING=true
+    healthcheck:
+      test: ["CMD", "bun", "run", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["bun", "run", "dev"]
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data: 
