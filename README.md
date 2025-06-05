@@ -55,23 +55,26 @@ bun run dev
 ### Production Mode
 ```bash
 bun run build
-bun run start
+bun start
 ```
 
 ### Using Docker
 ```bash
 # Start the application and MongoDB
 docker compose up -d
-
-# Populate database with sample data
-docker compose --profile seeder up seeder
 ```
 
 This will:
-- Start the API server on port 3000
-- Start MongoDB on port 27017
-- Create 30 random players with rankings
-- Generate statistics about card findings
+1. Start MongoDB on port 27017
+2. Run the database seeder to populate initial data:
+   - Create 30 random players with rankings
+   - Generate statistics about card findings
+3. Start the API server on port 3000
+
+The Docker setup automatically:
+- Uses Bun for optimal performance
+- Seeds the database during initial setup
+- Ensures services start in the correct order with health checks
 
 ## 📊 Seeding Data
 
@@ -80,8 +83,8 @@ The project includes scripts to populate the database with sample data:
 ### Available Scripts
 ```bash
 bun run seed            # Run both seeds in sequence
-bun run seed:stats      # Seed statistics based on rankings
 bun run seed:rankings   # Seed only rankings data (30 random players)
+bun run seed:stats      # Seed statistics based on rankings
 ```
 
 ### Sample Data Generated

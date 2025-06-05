@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build: 
@@ -21,10 +19,12 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+      seeder:
+        condition: service_completed_successfully
     volumes:
       - .:/app
       - /app/node_modules
-    command: ["bun", "run", "dev"]
+    command: bun run dev
 
   mongodb:
     image: mongo:latest
@@ -51,9 +51,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: ["bun", "run", "seed"]
-    profiles:
-      - seeder
+    command: bun run seed
+    restart: "no"
 
 volumes:
   mongodb_data: 
