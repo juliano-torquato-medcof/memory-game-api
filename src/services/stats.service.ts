@@ -1,3 +1,4 @@
+import { RankingModel } from '../models/ranking.model';
 import { StatsModel, StatsOverview } from '../models/stats.model';
 import { StatsQuery } from '../views/stats.view';
 import { SortOrder } from 'mongoose';
@@ -161,4 +162,20 @@ export const getWeeklyStats = async (date: Date = new Date()) => {
     startDate: startOfWeek,
     endDate: endOfWeek
   });
+};
+
+export const getAveragetotalScore = async () => {
+  const totalScore = await RankingModel.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalScore: { $sum: '$score' }
+      }
+    }
+  ]);
+  const totalCollection = await RankingModel.countDocuments();
+  const averagetotalScore = (totalScore[0]?.totalScore) / totalCollection;
+  return {
+    averagetotalScore
+  };
 };

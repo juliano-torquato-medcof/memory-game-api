@@ -1,12 +1,13 @@
 import { Request } from 'express';
-import { 
-  mostFirstFound, 
-  leastFirstFound, 
-  mostLastFound, 
+import {
+  mostFirstFound,
+  leastFirstFound,
+  mostLastFound,
   leastLastFound,
   getStatsOverview,
   getDailyStats,
-  getWeeklyStats
+  getWeeklyStats,
+  getAveragetotalScore
 } from '../services/stats.service';
 import { ok, serverError, unprocessable } from '../helpers/httpResponse';
 import { Controller } from '../adapters/express-route.adapter';
@@ -103,4 +104,14 @@ export const getWeeklyStatsHandler: Controller = async (req: Request) => {
     console.error('Error getting weekly stats:', error);
     return serverError('Failed to get weekly stats');
   }
-}; 
+};
+
+export const getAveragetotalScoreHandler: Controller = async (req: Request) => {
+  try {
+    const stats = await getAveragetotalScore();
+    return ok(stats)
+  } catch (error) {
+    console.error('Error getting average time completion:', error);
+    return serverError('Failed to get average time completion');
+  }
+};
