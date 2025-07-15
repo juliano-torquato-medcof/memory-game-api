@@ -13,7 +13,7 @@ export const listRankings = async (
   
   const [rankings, total] = await Promise.all([
     RankingModel.find()
-      .sort({ firstFound: -1, lastFound: -1 })
+      .sort({ score: -1})
       .skip(skip)
       .limit(limit)
       .lean(),
@@ -25,6 +25,6 @@ export const listRankings = async (
     total,
     page,
     limit,
-    hasMore: total > page
+    hasMore: total > page * limit 
   };
 };

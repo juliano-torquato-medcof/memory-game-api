@@ -33,6 +33,7 @@ export const getRankings: Controller = async (req: Request) => {
     const limit = Math.min(50, Math.max(1, Number(req.query.limit) || 10));
 
     const result = await listRankings(page, limit);
+    console.log(result);  
     return ok({
       rankings: rankingListView(result.data),
       pagination: {
