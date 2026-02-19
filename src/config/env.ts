@@ -6,6 +6,8 @@ const envSchema = z.object({
   PORT: z.string().transform(Number).pipe(z.number().positive()).default('3000'),
   MONGO_URL: z.string().min(1, 'MongoDB URL is required'),
   API_URL: z.string().url().optional().default('http://localhost'),
+  JWT_SECRET: z.string().min(16, 'JWT_SECRET must be at least 16 characters').optional(),
+  JWT_EXPIRES_IN: z.string().default('7d'),
 });
 
 const parseEnv = () => {
