@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import type { Document } from 'mongoose';
 import { z } from 'zod';
 
 export interface Ranking extends Document {
@@ -6,11 +7,12 @@ export interface Ranking extends Document {
   score: number;
   firstFound: string;
   lastFound: string;
+  userId?: mongoose.Types.ObjectId;
   createdAt: Date;
 }
 
 export const RankingSchemaZod = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1).optional(),
   score: z.number().positive(),
   firstFound: z.string(),
   lastFound: z.string(),
@@ -21,6 +23,7 @@ const RankingSchema = new Schema<Ranking>({
   score: { type: Number, required: true },
   firstFound: { type: String, required: true },
   lastFound: { type: String, required: true },
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: false },
 }, {
   collection: 'rankings',
   timestamps: { createdAt: true, updatedAt: false },

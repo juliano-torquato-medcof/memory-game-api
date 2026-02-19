@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import rankingsRouter from './routes/rankings.routes';
 import statsRouter from './routes/stats.routes';
+import authRouter from './routes/auth.routes';
 import { connectMongoose } from './config/mongoose';
 import { swaggerDefinition } from './swagger';
 import { env } from './config/env';
@@ -12,6 +13,7 @@ const app = express();
 app.use(loggerMiddleware);
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+app.use('/auth', authRouter);
 app.use('/rankings', rankingsRouter);
 app.use('/stats', statsRouter);
 
